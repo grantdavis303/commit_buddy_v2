@@ -1,47 +1,52 @@
 import { useState } from 'react'
 import { TextField } from '@mui/material'
-import CommitMessageCard from './components/CommitMessageCard.jsx'
+
+import GeneratedMessageCard from './components/GeneratedMessageCard.jsx'
+
 import './App.css'
+import './components/Components.css'
 
 function App() {
-  const [commitMessage, setCommitMessage] = useState({
+  const [data, setData] = useState({
     filePath: '',
     messageContent: ''
   })
 
-  function handleFilePathChange(path) {
-    setCommitMessage({
-      ...commitMessage,
+  function changeFilePath(path) {
+    setData({
+      ...data,
       filePath: path.target.value,
     });
   }
 
-  function handleMessageContentChange(content) {
-    setCommitMessage({
-      ...commitMessage,
+  function changeMessageContent(content) {
+    setData({
+      ...data,
       messageContent: content.target.value,
     });
   }
 
   return (
     <>
-      <h1> Commit Buddy </h1>
+      <h1> Commit Buddy v2 </h1>
 
       <p> A simple JavaScript tool that dynamically creates Git commit commands based on user input. </p>
 
-      <p><b> File or File Path </b></p>
+      <div>
+        <p><b> File or File Path </b></p>
 
-      <p> You can manually type in the file or file path, or copy and paste the relative path from your IDE. </p>
+        <p> You can manually type in the file or file path, or copy and paste the relative path from your IDE. Add multiple files with spaces. </p>
 
-      <TextField fullWidth value={commitMessage.filePath} onChange={handleFilePathChange} />
+        <TextField fullWidth value={data.filePath} onChange={changeFilePath} />
+      </div>
 
-      <p><b> Commit Message </b></p>
+      <div>
+        <p><b> Commit Message </b></p>
 
-      <TextField fullWidth value={commitMessage.messageContent} onChange={handleMessageContentChange} />
+        <TextField fullWidth value={data.commitMessage} onChange={changeMessageContent} />
+      </div>
 
-      <p><b> Generated Message </b></p>
-
-      <CommitMessageCard content={commitMessage} />
+      <GeneratedMessageCard content={data} />
     </>
   )
 }

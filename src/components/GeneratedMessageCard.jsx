@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Button } from '@mui/material'
-import './Components.css'
+import Snackbar from '@mui/material/Snackbar'
+import './component_styles.css'
 
 function GeneratedMessageCard(commitMessage) {
   const [copyButtonText, setCopyButtonText] = useState('Copy');
+  const [open, setOpen] = useState(false);
 
   function copyToClipboard() {
     const filePath = `git add ${commitMessage.content.filePath}`;
@@ -17,18 +19,32 @@ function GeneratedMessageCard(commitMessage) {
     setTimeout(() => {
       setCopyButtonText('Copy');
     }, 1500);
+
+    handleClick();
   }
 
-  return (
-    <>
-      <p><b> Generated Message </b></p>
+  const handleClick = () => {
+    setOpen(true);
+  }
 
-      <div className='commitMessageCard'>
-        <p> git add <span className='filePath'>{commitMessage.content.filePath}</span> </p>
-        <p> git commit -m <span className='messageContent'>"{commitMessage.content.messageContent}"</span> </p>
-        <Button variant='contained' onClick={copyToClipboard}> {copyButtonText} </Button>
-      </div>
-    </>
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div className='messageCard'>
+      <p> git add <span className='filePath'>{commitMessage.content.filePath}</span> </p>
+      <p> git commit -m <span className='messageContent'>"{commitMessage.content.messageContent}"</span> </p>
+
+      <Button variant='contained' onClick={copyToClipboard}>{copyButtonText}</Button>
+
+      <Snackbar
+        open={open}
+        message='Copied to the clipboard.'
+        autoHideDuration={2000}
+        onClose={handleClose}
+      />
+    </div>
   )
 }
 

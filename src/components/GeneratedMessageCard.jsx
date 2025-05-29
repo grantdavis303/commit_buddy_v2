@@ -1,6 +1,5 @@
 import { useState } from 'react'
-import { Button } from '@mui/material'
-import Snackbar from '@mui/material/Snackbar'
+import { Button, Snackbar } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import './component_styles.css'
 

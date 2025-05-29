@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Button } from '@mui/material'
+import { Button, Snackbar } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import './component_styles.css'
 
 function PushMainMessageCard() {
   const [copyButtonText, setCopyButtonText] = useState('Copy');
+  const [open, setOpen] = useState(false);
 
   function copyToClipboard() {
     const pushMain = 'git push origin main';
@@ -41,6 +42,13 @@ function PushMainMessageCard() {
       <ThemeProvider theme={theme}>
         <Button variant='outlined' color='white' onClick={copyToClipboard}>{copyButtonText}</Button>
       </ThemeProvider>
+
+      <Snackbar
+        open={open}
+        message='Copied to the clipboard.'
+        autoHideDuration={2000}
+        onClose={handleClose}
+      />
     </div>
   )
 }

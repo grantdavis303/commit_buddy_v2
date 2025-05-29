@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Button } from '@mui/material'
 import Snackbar from '@mui/material/Snackbar'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 import './component_styles.css'
 
 function GeneratedMessageCard(commitMessage) {
@@ -31,12 +32,20 @@ function GeneratedMessageCard(commitMessage) {
     setOpen(false);
   };
 
+  const theme = createTheme({
+    palette: {
+      white: '#FFFFFF'
+    }
+  });
+
   return (
     <div className='messageCard'>
       <p> git add <span className='filePath'>{commitMessage.content.filePath}</span> </p>
       <p> git commit -m <span className='messageContent'>"{commitMessage.content.messageContent}"</span> </p>
 
-      <Button variant='contained' onClick={copyToClipboard}>{copyButtonText}</Button>
+      <ThemeProvider theme={theme}>
+        <Button variant='outlined' color='white' onClick={copyToClipboard}>{copyButtonText}</Button>
+      </ThemeProvider>
 
       <Snackbar
         open={open}
